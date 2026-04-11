@@ -1403,15 +1403,14 @@
     </div>
   </div>
 
-  <nav class="tabs-nav">
-    <button class="tab-btn active" data-tab="thesis">Thesis</button>
-    <button class="tab-btn" data-tab="pitch">AVGO Pitch</button>
-    <button class="tab-btn" data-tab="comps">Trading Comps</button>
-    <button class="tab-btn" data-tab="screen">Growth · Value Screen</button>
-    <button class="tab-btn" data-tab="visuals">Visuals</button>
-    <button class="tab-btn" data-tab="stl">STL × AI</button>
-  </nav>
-</div>
+ <nav class="tabs-nav">
+  <button class="tab-btn active" data-tab="thesis">Thesis</button>
+  <button class="tab-btn" data-tab="pitch">AVGO Pitch</button>
+  <button class="tab-btn" data-tab="comps">Trading Comps</button>
+  <button class="tab-btn" data-tab="screen">Growth · Value Screen</button>
+  <button class="tab-btn" data-tab="visuals">Visuals</button>
+  <button class="tab-btn" data-tab="stl">STL × AI</button>
+</nav>
 
 <!-- ── Content ─────────────────────────────────────────────────────────────── -->
 <div class="content">
@@ -3426,6 +3425,11 @@
 </div>
 
 <style>
+  .tab-btn.active {
+  background-color: var(--surface2); /* Or your preferred highlight color */
+  color: var(--text);
+  border-bottom: 2px solid var(--accent-blue); /* Optional highlight line */
+}
   #brand-corner {
     position: fixed;
     bottom: 20px;
@@ -3580,5 +3584,36 @@ Ask me anything about the pitch.</div>
     }
   });
 })();
+</script><script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tabs = document.querySelectorAll('.tab-btn');
+  const contents = document.querySelectorAll('.tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.getAttribute('data-tab');
+
+      // 1. Remove 'active' class from all buttons
+      tabs.forEach(t => t.classList.remove('active'));
+      
+      // 2. Add 'active' class to the clicked button
+      tab.classList.add('active');
+
+      // 3. Hide all content sections
+      contents.forEach(content => {
+        content.style.display = 'none';
+      });
+
+      // 4. Show the targeted content section
+      const targetSection = document.getElementById(target);
+      if (targetSection) {
+        targetSection.style.display = 'block';
+      }
+
+      // 5. Fix for Charts: Trigger a resize so chart.min.js redraws properly
+      window.dispatchEvent(new Event('resize'));
+    });
+  });
+});
 </script></body>
 </html>
